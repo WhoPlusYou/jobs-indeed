@@ -148,6 +148,7 @@ class IndeedProviderTest extends \PHPUnit_Framework_TestCase
             'jobkey' => uniqid(),
             'latitude' => uniqid(),
             'longitude' => uniqid(),
+            'onmousedown' => uniqid(),
         ];
     }
 }
