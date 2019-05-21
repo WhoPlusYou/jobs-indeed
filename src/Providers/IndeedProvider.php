@@ -20,6 +20,7 @@ class IndeedProvider extends AbstractProvider
             'url' => $payload['url'],
             'sourceId' => $payload['jobkey'],
             'location' => $payload['formattedLocation'],
+            'javascriptFunction' => $payload['onmousedown'],
         ]);
 
         $job = $this->setJobLocation($job, $payload['formattedLocation']);
