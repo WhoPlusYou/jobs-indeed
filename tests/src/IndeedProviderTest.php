@@ -106,6 +106,51 @@ class IndeedProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(count($jobObjects), $results);
     }
 
+    public function testItCanSetAndGetMetaData()
+    {
+        $url = 'http://api.indeed.com/ads/apisearch';
+
+        $options = [
+            'q' => uniqid(),
+            'l' => uniqid(),
+            'publisher' => uniqid(),
+        ];
+
+        $guzzle = m::mock('GuzzleHttp\Client');
+
+        $query = new IndeedQuery($options);
+
+        $client = new IndeedProvider($query);
+
+        $client->setClient($guzzle);
+
+        $response = m::mock('GuzzleHttp\Message\Response');
+
+        $jobObjects = [
+            (object) $this->createJobArray(),
+        ];
+
+        $jobs = json_encode((object) [
+            'page' => 1,
+            'results' => $jobObjects,
+        ]);
+
+        $guzzle->shouldReceive('get')
+            ->with($query->getUrl(), [])
+            ->once()
+            ->andReturn($response);
+        $response->shouldReceive('getBody')
+            ->once()
+            ->andReturn($jobs);
+
+        $results = $client->getJobs();
+        $meta = $client->getMetaData();
+
+        $this->assertTrue($meta['page'] === 1);
+        $this->assertInstanceOf(Collection::class, $results);
+        $this->assertCount(count($jobObjects), $results);
+    }
+
     /**
      * Integration test with actual API call to the provider.
      */
