@@ -7,7 +7,7 @@ class IndeedProvider extends AbstractProvider
     /**
      * The meta data that came from the request
      * Is set AFTER the getJobs() has been called
-     * 
+     *
      * @var array
      */
     protected $meta = [];
@@ -124,7 +124,7 @@ class IndeedProvider extends AbstractProvider
 
     /**
      * Set the meta data that came from the request
-     * 
+     *
      * @param void
      */
     public function setMetaData($payload)
@@ -136,7 +136,7 @@ class IndeedProvider extends AbstractProvider
 
     /**
      * Get the meta data that came from the request
-     * 
+     *
      * @return array
      */
     public function getMetaData()
